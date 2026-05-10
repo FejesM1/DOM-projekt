@@ -81,7 +81,19 @@
       document.getElementById('historia').appendChild(li);
     }
 
-    
+    function reset() {
+      dobaszam = 0;
+      document.getElementById('dice1').src = '';
+      document.getElementById('dice2').src = '';
+      document.getElementById('szam1').innerText = '–';
+      document.getElementById('szam2').innerText = '–';
+      document.getElementById('eredmeny').innerText = '–';
+      document.getElementById('gyoztes-felirat').innerText = '';
+      document.getElementById('historia').innerHTML = '';
+    }
+
+    document.getElementById('btn-dob').addEventListener('click', dob);
+    document.getElementById('btn-reset').addEventListener('click', reset);
   </script>
 
 </body>
