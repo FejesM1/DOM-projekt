@@ -51,6 +51,29 @@
       status.textContent = 'MOST! Kattints!';
     }, delay);
   }
+
+  function handleClick() {
+    if (state === 'waiting') {
+      clearTimeout(waitTimer);
+      state = 'idle';
+      target.style.backgroundColor = 'yellow';
+      target.style.cursor = 'default';
+      status.textContent = 'Túl korán! Próbáld újra.';
+      display.textContent = '';
+      return;
+    }
+
+    if (state === 'green') {
+      var rt = Date.now() - greenAt;
+      state = 'idle';
+      target.style.backgroundColor = 'gray';
+      target.style.cursor = 'default';
+      display.textContent = 'Reakcióidő: ' + rt + ' ms';
+      status.textContent = 'Nyomj Startra a következő körhöz.';
+      results.push(rt);
+      updateToplista();
+    }
+  }
 </script>
 
 </body>
