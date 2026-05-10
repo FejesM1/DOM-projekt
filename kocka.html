@@ -51,6 +51,36 @@
       return Math.floor(Math.random() * 6) + 1;
     }
 
+    function dob() {
+      var ertek1 = randomDice();
+      var ertek2 = randomDice();
+
+      document.getElementById('dice1').src = DICE_IMAGES[ertek1];
+      document.getElementById('dice2').src = DICE_IMAGES[ertek2];
+      document.getElementById('szam1').innerText = ertek1;
+      document.getElementById('szam2').innerText = ertek2;
+
+      var eredmeny;
+      if (ertek1 > ertek2) {
+        eredmeny = '1. játékos nyer!';
+        document.getElementById('eredmeny').innerText = 'vs.';
+        document.getElementById('gyoztes-felirat').innerText =  eredmeny;
+      } else if (ertek2 > ertek1) {
+        eredmeny = '2. játékos nyer!';
+        document.getElementById('eredmeny').innerText = 'vs.';
+        document.getElementById('gyoztes-felirat').innerText =  eredmeny;
+      } else {
+        eredmeny = 'Döntetlen!';
+        document.getElementById('eredmeny').innerText = '=';
+        document.getElementById('gyoztes-felirat').innerText = eredmeny;
+      }
+
+      dobaszam++;
+      var li = document.createElement('li');
+      li.innerText = dobaszam + '. dobás: 1. játékos ' + ertek1 + ' vs. 2. játékos ' + ertek2 + ' → ' + eredmeny;
+      document.getElementById('historia').appendChild(li);
+    }
+
     
   </script>
 
