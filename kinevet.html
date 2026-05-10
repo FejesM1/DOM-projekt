@@ -25,6 +25,32 @@
 </table>
 
 <script>
+  var state = 'idle';
+  var waitTimer = null;
+  var greenAt = null;
+  var results = [];
+
+  var target = document.getElementById('target');
+  var status = document.getElementById('status');
+  var display = document.getElementById('reaction-display');
+
+  function startGame() {
+
+    if (state === 'waiting' || state === 'green') return;
+    state = 'waiting';
+    target.style.backgroundColor = 'red';
+    target.style.cursor = 'default';
+    display.textContent = '';
+    status.textContent = 'Várd a zöldet...';
+    var delay = 1500 + Math.random() * 3500;
+    waitTimer = setTimeout(function() {
+      state = 'green';
+      greenAt = Date.now();
+      target.style.backgroundColor = 'green';
+      target.style.cursor = 'pointer';
+      status.textContent = 'MOST! Kattints!';
+    }, delay);
+  }
 </script>
 
 </body>
