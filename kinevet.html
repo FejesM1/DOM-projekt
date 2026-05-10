@@ -3,39 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <title>Ki nevet a végén?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #222;
+      text-align: center;
+      margin: 0;
+      padding: 40px;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    #status {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    #target {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: gray;
+      cursor: default;
+      margin: 20px auto;
+      transition: background-color 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    #reaction-display {
+      font-size: 20px;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 6px;
+      background-color: #222;
+      color: white;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 250px;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    th {
+      background-color: #222;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-
 <h1>Ki nevet a végén? – Reakciójáték</h1>
-
 <p id="status">Nyomj a Start gombra!</p>
-
-<div id="target" onclick="handleClick()"
-  style="width:200px; height:200px; border-radius:50%; background:gray; cursor:default; margin:20px 0;">
-</div>
-
+<div id="target" onclick="handleClick()"></div>
 <p id="reaction-display"></p>
-
 <button onclick="startGame()">Start</button>
 <button onclick="resetAll()">Nulláz</button>
-
 <h2>Toplista</h2>
-<table border="1" id="toplista">
-  <tr><th>#</th><th>Idő (ms)</th></tr>
+<table id="toplista">
+  <tr>
+    <th>#</th>
+    <th>Idő (ms)</th>
+  </tr>
 </table>
-
 <script>
   var state = 'idle';
   var waitTimer = null;
   var greenAt = null;
   var results = [];
-
   var target = document.getElementById('target');
   var status = document.getElementById('status');
   var display = document.getElementById('reaction-display');
-
   function startGame() {
-
     if (state === 'waiting' || state === 'green') return;
     state = 'waiting';
     target.style.backgroundColor = 'red';
@@ -51,7 +102,6 @@
       status.textContent = 'MOST! Kattints!';
     }, delay);
   }
-
   function handleClick() {
     if (state === 'waiting') {
       clearTimeout(waitTimer);
@@ -62,7 +112,6 @@
       display.textContent = '';
       return;
     }
-
     if (state === 'green') {
       var rt = Date.now() - greenAt;
       state = 'idle';
@@ -74,48 +123,32 @@
       updateToplista();
     }
   }
-
   function updateToplista() {
-
-  var sorted = results
-    .slice()
-    .sort(function(a, b) {
-      return a - b;
-    })
-    .slice(0, 10);
-
-  var table = document.getElementById('toplista');
-
-  table.innerHTML = '<tr><th>#</th><th>Idő (ms)</th></tr>';
-
-  for (var i = 0; i < sorted.length; i++) {
-
-    var row = table.insertRow();
-
-    row.insertCell().textContent = i + 1;
-    row.insertCell().textContent = sorted[i];
+    var sorted = results
+      .slice()
+      .sort(function(a, b) {
+        return a - b;
+      })
+      .slice(0, 10);
+    var table = document.getElementById('toplista');
+    table.innerHTML = '<tr><th>#</th><th>Idő (ms)</th></tr>';
+    for (var i = 0; i < sorted.length; i++) {
+      var row = table.insertRow();
+      row.insertCell().textContent = i + 1;
+      row.insertCell().textContent = sorted[i];
+    }
   }
-}
-
-function resetAll() {
-
-  clearTimeout(waitTimer);
-
-  state = 'idle';
-
-  results = [];
-
-  target.style.backgroundColor = 'gray';
-  target.style.cursor = 'default';
-
-  status.textContent = 'Nullázva. Nyomj Startra!';
-
-  display.textContent = '';
-
-  document.getElementById('toplista').innerHTML =
-    '<tr><th>#</th><th>Idő (ms)</th></tr>';
-}
+  function resetAll() {
+    clearTimeout(waitTimer);
+    state = 'idle';
+    results = [];
+    target.style.backgroundColor = 'gray';
+    target.style.cursor = 'default';
+    status.textContent = 'Nullázva. Nyomj Startra!';
+    display.textContent = '';
+    document.getElementById('toplista').innerHTML =
+      '<tr><th>#</th><th>Idő (ms)</th></tr>';
+  }
 </script>
-
 </body>
 </html>
