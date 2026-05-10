@@ -74,6 +74,28 @@
       updateToplista();
     }
   }
+
+  function updateToplista() {
+
+  var sorted = results
+    .slice()
+    .sort(function(a, b) {
+      return a - b;
+    })
+    .slice(0, 10);
+
+  var table = document.getElementById('toplista');
+
+  table.innerHTML = '<tr><th>#</th><th>Idő (ms)</th></tr>';
+
+  for (var i = 0; i < sorted.length; i++) {
+
+    var row = table.insertRow();
+
+    row.insertCell().textContent = i + 1;
+    row.insertCell().textContent = sorted[i];
+  }
+}
 </script>
 
 </body>
