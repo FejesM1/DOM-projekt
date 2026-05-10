@@ -96,6 +96,25 @@
     row.insertCell().textContent = sorted[i];
   }
 }
+
+function resetAll() {
+
+  clearTimeout(waitTimer);
+
+  state = 'idle';
+
+  results = [];
+
+  target.style.backgroundColor = 'gray';
+  target.style.cursor = 'default';
+
+  status.textContent = 'Nullázva. Nyomj Startra!';
+
+  display.textContent = '';
+
+  document.getElementById('toplista').innerHTML =
+    '<tr><th>#</th><th>Idő (ms)</th></tr>';
+}
 </script>
 
 </body>
