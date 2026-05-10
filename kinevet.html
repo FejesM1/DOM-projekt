@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <meta charset="UTF-8">
   <title>Ki nevet a végén?</title>
   <style>
@@ -84,7 +85,7 @@
   var greenAt = null;
   var results = [];
   var target = document.getElementById('target');
-  var status = document.getElementById('status');
+  var statusDisplay = document.getElementById('status');
   var display = document.getElementById('reaction-display');
   function startGame() {
     if (state === 'waiting' || state === 'green') return;
@@ -92,14 +93,14 @@
     target.style.backgroundColor = 'red';
     target.style.cursor = 'default';
     display.textContent = '';
-    status.textContent = 'Várd a zöldet...';
+    statusDisplay.textContent = 'Várd a zöldet...';
     var delay = 1500 + Math.random() * 3500;
     waitTimer = setTimeout(function() {
       state = 'green';
       greenAt = Date.now();
       target.style.backgroundColor = 'green';
       target.style.cursor = 'pointer';
-      status.textContent = 'MOST! Kattints!';
+      statusDisplay.textContent = 'MOST! Kattints!';
     }, delay);
   }
   function handleClick() {
@@ -108,7 +109,7 @@
       state = 'idle';
       target.style.backgroundColor = 'yellow';
       target.style.cursor = 'default';
-      status.textContent = 'Túl korán! Próbáld újra.';
+      statusDisplay.textContent = 'Túl korán! Próbáld újra.';
       display.textContent = '';
       return;
     }
@@ -118,7 +119,7 @@
       target.style.backgroundColor = 'gray';
       target.style.cursor = 'default';
       display.textContent = 'Reakcióidő: ' + rt + ' ms';
-      status.textContent = 'Nyomj Startra a következő körhöz.';
+      statusDisplay.textContent = 'Nyomj Startra a következő körhöz.';
       results.push(rt);
       updateToplista();
     }
@@ -144,11 +145,12 @@
     results = [];
     target.style.backgroundColor = 'gray';
     target.style.cursor = 'default';
-    status.textContent = 'Nullázva. Nyomj Startra!';
+    statusDisplay.textContent = 'Nullázva. Nyomj Startra!';
     display.textContent = '';
     document.getElementById('toplista').innerHTML =
       '<tr><th>#</th><th>Idő (ms)</th></tr>';
   }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
