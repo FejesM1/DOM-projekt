@@ -3,7 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <title>Dobókocka Párbaj</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 30px;
+      color: #222;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 15px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    img {
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    #eredmeny {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    #gyoztes-felirat {
+      margin-top: 20px;
+      font-size: 22px;
+    }
+
+    button {
+      margin: 10px 5px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      background: #222;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    ol {
+      margin: 20px auto;
+      padding: 0;
+      max-width: 500px;
+      text-align: left;
+    }
+
+    li {
+      background: white;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 6px;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    }
+  </style>
 </head>
+
 <body>
 
   <h1>Dobókocka Párbaj</h1>
@@ -27,6 +101,7 @@
   </table>
 
   <br>
+
   <button id="btn-dob">Dobás!</button>
   <button id="btn-reset">Nulláz</button>
 
@@ -54,30 +129,29 @@
     function dob() {
       var ertek1 = randomDice();
       var ertek2 = randomDice();
-
       document.getElementById('dice1').src = DICE_IMAGES[ertek1];
       document.getElementById('dice2').src = DICE_IMAGES[ertek2];
       document.getElementById('szam1').innerText = ertek1;
       document.getElementById('szam2').innerText = ertek2;
 
       var eredmeny;
+
       if (ertek1 > ertek2) {
         eredmeny = '1. játékos nyer!';
         document.getElementById('eredmeny').innerText = 'vs.';
-        document.getElementById('gyoztes-felirat').innerText =  eredmeny;
       } else if (ertek2 > ertek1) {
         eredmeny = '2. játékos nyer!';
         document.getElementById('eredmeny').innerText = 'vs.';
-        document.getElementById('gyoztes-felirat').innerText =  eredmeny;
       } else {
         eredmeny = 'Döntetlen!';
         document.getElementById('eredmeny').innerText = '=';
-        document.getElementById('gyoztes-felirat').innerText = eredmeny;
       }
+      document.getElementById('gyoztes-felirat').innerText = eredmeny;
 
       dobaszam++;
       var li = document.createElement('li');
-      li.innerText = dobaszam + '. dobás: 1. játékos ' + ertek1 + ' vs. 2. játékos ' + ertek2 + ' → ' + eredmeny;
+      li.innerText = dobaszam + '. dobás: 1. játékos ' + ertek1 +
+        ' vs. 2. játékos ' + ertek2 + ' → ' + eredmeny;
       document.getElementById('historia').appendChild(li);
     }
 
